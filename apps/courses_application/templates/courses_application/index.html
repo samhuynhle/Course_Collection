@@ -1,0 +1,76 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Checkout example for Bootstrap</title>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+
+    <nav class="navbar navbar-dark bg-secondary">
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+
+            <h1 class="text-muted mb-3">Course Collection</h1>
+
+                {% if messages %}
+                <ul class="messages border border-warning" style="width: 65%">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{message}} </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <form action="/addcourse" method="POST">
+                    {% csrf_token %}
+                    <div class="col-md-6 mb-3">
+                        <h4 for="title" class="text-muted mt-4">Title</h4>
+                        <input type="text" class="form-control" name="title" placeholder="Title of Course" required="">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <h4 for="description" class="text-muted mt-4">Description</h4>
+                        <input type="text" class="form-control" name="description" placeholder="Description of Show" required="">
+                    </div>
+
+                    <div class="col-md-6 mb-3 text-center">
+                        <button class="btn btn-info btn-med btn-block mt-5" type="submit">Add Course</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col">
+                <table class="table">
+                <thead>
+                    <tr class="text-info">
+                    <th scope="col">Course Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col">Comments</th>
+                    <th scope="col">Delete</th>
+                    <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in request.session.for_print %}
+                        {{a | safe}}
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>  
+        </div>
+    </div>
+
+    </body>

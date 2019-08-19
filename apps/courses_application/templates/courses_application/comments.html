@@ -1,0 +1,103 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cover Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </head>
+
+<body class="text-center">
+
+    <nav class="navbar navbar-dark bg-secondary">
+    </nav>
+
+    <div class="text-right mr-5">
+        <a href="/" class="btn btn-med btn-secondary mt-3">Go Back</a>
+    </div>
+
+
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+      <div class="row">
+        <div class="col"></div>
+        <div class="col-8">
+        <h4 class="cover-heading">Comments on the course: {{course.title}}</h4>
+
+        <table class="table mt-5">
+            <thead>
+                <tr class="text-info">
+                <th scope="col">Username</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in comments %}
+                <tr>
+                <th>{{ a.username }}</th>
+                <th>{{ a.comment }}</th>
+                <th>{{ a.created_at }}</th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        <div class="col"></div>
+      </div>
+
+      <div class="row mt-5">
+      <div class="col-2"></div>
+      <div class="col-8">
+        {% if messages %}
+        <ul class="messages border border-warning text-left" style="width: 20%">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{message}} </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="/comments/{{course.id}}" method="POST">
+            {% csrf_token %}
+            <div class="col-md-6 mb-3 text-left">
+                <label for="title">Username: </label>
+                <input type="text" class="form-control" name="username" placeholder="Username" required="">
+            </div>
+
+            <div class="col-md-6 mb-3 text-left">
+                <label for="description">Comment: </label>
+                <input type="text" class="form-control" name="comment" placeholder="Comment" required="">
+            </div>
+
+            <div class="col-md-6 mb-3 text-center">
+                <button class="btn btn-info btn-med btn-block" type="submit">Add Comment</button>
+            </div>
+        </form>
+      </div>
+      <div class="col"></div>
+      </div>
+
+      <div class="row text-center mt-5">
+          <div class="col"></div>
+          <div class="col">
+          <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+          </div>
+      <div class="col"></div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
